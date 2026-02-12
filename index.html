@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Maya ❤️</title>
+<title> FOR YVETTE MAYA ❤️</title>
 
 <style>
 body {
@@ -87,9 +87,19 @@ input {
 .arrow-hide {
     display: none;
 }
+
+/* 🎆 FIREWORKS CANVAS */
+#fireworksCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
 </style>
 </head>
-
 <body>
 
 <!-- 🎯 FLOATING ARROW GUIDE -->
@@ -97,8 +107,8 @@ input {
 
 <!-- 🔐 PASSWORD SECTION -->
 <section id="passwordSection" class="active">
-    <h1>Enter The Password ❤️</h1>
-    <p style="opacity:0.7;">Hint: It's her birthday 😉</p>
+    <h1>Enter The Password ❤️(And Yes I made this its Hobby) </h1>
+    <p style="opacity:0.7;">Hint: It's his birthday </p>
     <input type="text" id="passwordInput" placeholder="DD/MM/YYYY">
     <br><br>
     <button onclick="checkPassword()">Unlock</button>
@@ -106,8 +116,8 @@ input {
 
 <!-- 💖 TAP TO UNLOCK LOLENZI -->
 <section id="unlockSection">
-    <h1>Maya ❤️</h1>
-    <button onclick="startExperience()">Tap to Unlock Lolenzi ❤️</button>
+    <h1> Maya ❤️</h1>
+    <button onclick="startExperience()">Tap to Unlock Hun❤️</button>
 </section>
 
 <!-- ⌨️ TYPING MESSAGE -->
@@ -117,8 +127,7 @@ input {
 
 <!-- 📸 MEMORY TIMELINE -->
 <section id="timelineSection" class="timeline">
-    <h1>Our Story So Far ❤️</h1>
-
+    <h1>Her so far ❤️</h1>
     <img src="first.jpg" alt="First Time We Met">
     <p>The first time we met... I didn't know you'd mean this much.</p>
 
@@ -126,8 +135,7 @@ input {
     <p>Our inside jokes that no one else understands.</p>
 
     <img src="third.jpg" alt="Special Moment">
-    <p>Every small moment became something unforgettable.</p>
-
+    <p>Every small moment though virtual I don't know .</p>
 </section>
 
 <!-- ❤️ FINAL QUESTION -->
@@ -138,20 +146,16 @@ input {
 
 <!-- 📝 TRUST MESSAGE ENDING -->
 <section id="trustSection">
-    <h2>You once said no to being my Valentine…</h2>
+    <h2>You once said No to being my Valentine…</h2>
     <p>
-        And you said no to adding me to your notes.  
-        I promised I wouldn't remind you.  
-        I said I wouldn't bring it up again.
+        And another Day you said No to adding me to your notes.  
+        I promised I wouldn't remind you coz yeah forcing nope so .  
+        I said I wouldn't bring it up again sadly I did hear......
     </p>
     <p>
         But this… this isn't reminding you.  
-        This is trusting you.
-    </p>
-    <p>
-        It's trusting that you'll remember.  
-        That you'll choose.  
-        That you'll feel it too.
+        This is trusting you and telling you whatever you choose, all decision 
+        you will make is on you. Hope you won't hurt me either way I won't say, I'll just sleep on it.
     </p>
     <h1>❤️</h1>
 </section>
@@ -159,11 +163,14 @@ input {
 <!-- 🎵 BACKGROUND MUSIC -->
 <audio id="bgMusic" src="music.mp3"></audio>
 
+<!-- 🎆 FIREWORKS CANVAS -->
+<canvas id="fireworksCanvas"></canvas>
+
 <script>
 
 let unlocked = false; // Track if password is unlocked
 
-// 🔑 PASSWORD SCRIPT (Updated)
+// 🔑 PASSWORD SCRIPT
 let correctPassword = "29/10/2007"; // Her birthday
 
 function checkPassword() {
@@ -186,11 +193,11 @@ function hideArrow() {
     document.getElementById("scrollArrow").classList.add("arrow-hide");
 }
 
-// 💖 TAP TO UNLOCK LOLENZI
+// 💖 TAP TO UNLOCK EXPERIENCE
 function startExperience() {
     document.body.style.background = "linear-gradient(to bottom, #000000, #330033)";
     document.getElementById("bgMusic").play();
-    hideArrow(); // Hide arrow when experience starts
+    hideArrow();
     switchSection("unlockSection", "messageSection");
     typeMessage();
 }
@@ -207,14 +214,9 @@ function typeMessage() {
     } else {
         setTimeout(() => {
             switchSection("messageSection", "timelineSection");
-            showArrow(); // Show arrow again for timeline
+            showArrow();
         }, 2000);
     }
-}
-
-// ❤️ FINAL YES BUTTON
-function finalYes() {
-    switchSection("finalSection", "trustSection");
 }
 
 // 🔄 SWITCH SECTIONS
@@ -223,28 +225,101 @@ function switchSection(current, next) {
     document.getElementById(next).classList.add("active");
 }
 
-// 👀 PREVENT FINAL SECTION FROM SHOWING ON SCROLL - ONLY ON EXPLICIT UNLOCK
+// 👀 SCROLL LOGIC
 window.addEventListener("scroll", () => {
     let timeline = document.getElementById("timelineSection");
     let final = document.getElementById("finalSection");
-    let timelineRect = timeline.getBoundingClientRect();
-    
-    // Only show final section if user scrolled past timeline AND it's unlocked
     if (unlocked && window.scrollY > timeline.offsetTop + timeline.offsetHeight - 300) {
         final.classList.add("active");
-        hideArrow(); // Hide arrow when final section appears
+        hideArrow();
     } else if (!final.classList.contains("active")) {
-        // Keep showing arrow while scrolling through timeline
         if (timeline.classList.contains("active")) {
             showArrow();
         }
     }
 });
 
-// Hide arrow initially if on mobile
-window.addEventListener("load", () => {
-    hideArrow(); // Start with arrow hidden
-});
+window.addEventListener("load", () => hideArrow());
+
+// ❤️ FINAL YES BUTTON + FIREWORKS
+function finalYes() {
+    switchSection("finalSection", "trustSection");
+    launchFireworks();
+}
+
+// 🔥 FIREWORKS EFFECT
+function launchFireworks() {
+    const canvas = document.getElementById('fireworksCanvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext('2d');
+
+    const fireworks = [];
+
+    function random(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    function createFirework() {
+        const x = random(100, canvas.width - 100);
+        const y = random(100, canvas.height / 2);
+        const colors = ['#ff4b5c', '#ffb400', '#00bfa6', '#6a0572', '#ff6f91'];
+
+        for (let i = 0; i < 30; i++) {
+            fireworks.push({
+                x: x,
+                y: y,
+                radius: random(2, 4),
+                color: colors[Math.floor(Math.random() * colors.length)],
+                speedX: random(-5, 5),
+                speedY: random(-5, 5),
+                alpha: 1,
+                decay: random(0.01, 0.03)
+            });
+        }
+    }
+
+    function animate() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = fireworks.length - 1; i >= 0; i--) {
+            const f = fireworks[i];
+            ctx.beginPath();
+            ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${hexToRgb(f.color)},${f.alpha})`;
+            ctx.fill();
+
+            f.x += f.speedX;
+            f.y += f.speedY;
+            f.alpha -= f.decay;
+
+            if (f.alpha <= 0) {
+                fireworks.splice(i, 1);
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    function hexToRgb(hex) {
+        hex = hex.replace('#','');
+        const bigint = parseInt(hex,16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `${r},${g},${b}`;
+    }
+
+    let count = 0;
+    const interval = setInterval(() => {
+        createFirework();
+        count++;
+        if (count > 10) clearInterval(interval);
+    }, 300);
+
+    animate();
+}
 
 </script>
 

@@ -115,6 +115,7 @@ input {
     padding: 40px;
     opacity: 0;
     transition: opacity 1s ease;
+    overflow-y: auto;
 }
 
 .message-overlay.show {
@@ -123,28 +124,31 @@ input {
 }
 
 .message-overlay-content {
-    max-width: 600px;
+    max-width: 700px;
+    width: 100%;
     text-align: center;
     animation: slideInScale 0.8s ease;
+    margin: auto;
+    padding: 40px 20px;
 }
 
 .message-overlay-content h2 {
-    font-size: 28px;
-    margin-bottom: 30px;
+    font-size: 32px;
+    margin-bottom: 40px;
     color: #ff4b5c;
     text-shadow: 0 0 20px #ff4b5c;
 }
 
 .message-overlay-content p {
-    font-size: 16px;
-    line-height: 1.8;
+    font-size: 18px;
+    line-height: 2;
     color: #ffffff;
-    margin: 20px 0;
+    margin: 25px auto;
 }
 
 .message-overlay-content .heart {
-    font-size: 40px;
-    margin-top: 30px;
+    font-size: 50px;
+    margin-top: 40px;
     animation: heartBeat 1.5s infinite;
 }
 
@@ -337,17 +341,17 @@ function finalYes() {
     }, 3000);
 }
 
-// 💌 SHOW UNMISSABLE MESSAGE OVERLAY
+// 💌 SHOW UNMISSABLE MESSAGE OVERLAY - STAYS LONG FOR READING
 function showUnmissableMessage() {
     const overlay = document.getElementById("messageOverlay");
     overlay.classList.add("show");
     
-    // Auto-dismiss after 8 seconds, then continue to trust section
+    // Keep message visible for 15 seconds so she has plenty of time to read it
     setTimeout(() => {
         overlay.classList.remove("show");
         switchSection("finalSection", "trustSection");
         showArrow();
-    }, 8000);
+    }, 15000);
 }
 
 // 🔥 FIREWORKS
@@ -385,7 +389,7 @@ function launchFireworks() {
         for(let i=fireworks.length-1;i>=0;i--){
             const f=fireworks[i];
             ctx.beginPath();
-            ctx.arc(f.x,f.y,f.radius,0,Math.PI*2);
+            ctx.arc(f.y,f.y,f.radius,0,Math.PI*2);
             ctx.fillStyle = `rgba(${hexToRgb(f.color)},${f.alpha})`;
             ctx.fill();
             f.x += f.speedX;

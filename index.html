@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> FOR YVETTE MAYA ❤️</title>
+<title>FOR YVETTE MAYA ❤️</title>
 
 <style>
 body {
@@ -68,7 +68,7 @@ input {
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 40px;
+    font-size: 30px;
     animation: bounce 2s infinite;
     z-index: 100;
     cursor: pointer;
@@ -103,21 +103,21 @@ input {
 <body>
 
 <!-- 🎯 FLOATING ARROW GUIDE -->
-<div class="scroll-arrow" id="scrollArrow">⬇️✨</div>
+<div class="scroll-arrow" id="scrollArrow">Scroll Slowly ⬇️✨</div>
 
 <!-- 🔐 PASSWORD SECTION -->
 <section id="passwordSection" class="active">
-    <h1>Enter The Password ❤️(And Yes I made this its Hobby) </h1>
+    <h1>Enter The Password (,,,,and yes Caleb made this from scratch beileve it or not its a hobby DW) ❤️</h1>
     <p style="opacity:0.7;">Hint: It's his birthday </p>
     <input type="text" id="passwordInput" placeholder="DD/MM/YYYY">
     <br><br>
     <button onclick="checkPassword()">Unlock</button>
 </section>
 
-<!-- 💖 TAP TO UNLOCK LOLENZI -->
+<!-- 💖 TAP TO UNLOCK -->
 <section id="unlockSection">
-    <h1> Maya ❤️</h1>
-    <button onclick="startExperience()">Tap to Unlock Hun❤️</button>
+    <h1>Maya ❤️</h1>
+    <button onclick="startExperience()">Tap to Unlock Hun ❤️</button>
 </section>
 
 <!-- ⌨️ TYPING MESSAGE -->
@@ -135,7 +135,7 @@ input {
     <p>Our inside jokes that no one else understands.</p>
 
     <img src="third.jpg" alt="Special Moment">
-    <p>Every small moment though virtual I don't know .</p>
+    <p>Every small moment though virtual I don't know it clicked .</p>
 </section>
 
 <!-- ❤️ FINAL QUESTION -->
@@ -149,13 +149,13 @@ input {
     <h2>You once said No to being my Valentine…</h2>
     <p>
         And another Day you said No to adding me to your notes.  
-        I promised I wouldn't remind you coz yeah forcing nope so .  
+        I promised I wouldn't remind you coz yeah forcing nope so.  
         I said I wouldn't bring it up again sadly I did hear......
     </p>
     <p>
         But this… this isn't reminding you.  
-        This is trusting you and telling you whatever you choose, all decision 
-        you will make is on you. Hope you won't hurt me either way I won't say, I'll just sleep on it.
+        This is trusting you and telling you whatever you choose. All decisions 
+        you make are on you. Hope you won't hurt me either way. I won't say, I'll just sleep on it.
     </p>
     <h1>❤️</h1>
 </section>
@@ -167,24 +167,23 @@ input {
 <canvas id="fireworksCanvas"></canvas>
 
 <script>
+let unlocked = false;
 
-let unlocked = false; // Track if password is unlocked
-
-// 🔑 PASSWORD SCRIPT
-let correctPassword = "29/10/2007"; // Her birthday
+// 🔑 PASSWORD
+let correctPassword = "29/10/2007";
 
 function checkPassword() {
     let input = document.getElementById("passwordInput").value.trim();
     if (input === correctPassword) {
         unlocked = true;
         switchSection("passwordSection", "unlockSection");
-        showArrow(); // Show arrow after unlock
+        showArrow();
     } else {
         alert("Not quite 😉 Try again.");
     }
 }
 
-// 🎯 ARROW FUNCTIONS
+// 🎯 ARROW
 function showArrow() {
     document.getElementById("scrollArrow").classList.remove("arrow-hide");
 }
@@ -202,7 +201,7 @@ function startExperience() {
     typeMessage();
 }
 
-// ⌨️ TYPING MESSAGE
+// ⌨️ TYPING MESSAGE (slower)
 let message = "From the first day I saw you, Maya... something felt different. You weren't just another person. You were calm, chaos, comfort, and mystery all at once. And somehow... you became my favorite feeling. ❤️";
 let index = 0;
 
@@ -210,7 +209,7 @@ function typeMessage() {
     if (index < message.length) {
         document.getElementById("typing").innerHTML += message.charAt(index);
         index++;
-        setTimeout(typeMessage, 40);
+        setTimeout(typeMessage, 80); // slower speed
     } else {
         setTimeout(() => {
             switchSection("messageSection", "timelineSection");
@@ -241,19 +240,23 @@ window.addEventListener("scroll", () => {
 
 window.addEventListener("load", () => hideArrow());
 
-// ❤️ FINAL YES BUTTON + FIREWORKS
+// ❤️ FINAL YES + FIREWORKS + AUTO TRUST SECTION
 function finalYes() {
-    switchSection("finalSection", "trustSection");
     launchFireworks();
+
+    // Wait fireworks duration (~3s) then show trustSection
+    setTimeout(() => {
+        switchSection("finalSection", "trustSection");
+        showArrow(); // Show arrow to scroll trust section
+    }, 3000);
 }
 
-// 🔥 FIREWORKS EFFECT
+// 🔥 FIREWORKS
 function launchFireworks() {
     const canvas = document.getElementById('fireworksCanvas');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const ctx = canvas.getContext('2d');
-
     const fireworks = [];
 
     function random(min, max) {
@@ -263,65 +266,55 @@ function launchFireworks() {
     function createFirework() {
         const x = random(100, canvas.width - 100);
         const y = random(100, canvas.height / 2);
-        const colors = ['#ff4b5c', '#ffb400', '#00bfa6', '#6a0572', '#ff6f91'];
-
+        const colors = ['#ff4b5c','#ffb400','#00bfa6','#6a0572','#ff6f91'];
         for (let i = 0; i < 30; i++) {
             fireworks.push({
-                x: x,
-                y: y,
-                radius: random(2, 4),
-                color: colors[Math.floor(Math.random() * colors.length)],
-                speedX: random(-5, 5),
-                speedY: random(-5, 5),
-                alpha: 1,
-                decay: random(0.01, 0.03)
+                x:x, y:y,
+                radius: random(2,4),
+                color: colors[Math.floor(Math.random()*colors.length)],
+                speedX: random(-5,5),
+                speedY: random(-5,5),
+                alpha:1,
+                decay: random(0.01,0.03)
             });
         }
     }
 
     function animate() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        for (let i = fireworks.length - 1; i >= 0; i--) {
-            const f = fireworks[i];
+        ctx.fillStyle = 'rgba(0,0,0,0.2)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        for(let i=fireworks.length-1;i>=0;i--){
+            const f=fireworks[i];
             ctx.beginPath();
-            ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+            ctx.arc(f.x,f.y,f.radius,0,Math.PI*2);
             ctx.fillStyle = `rgba(${hexToRgb(f.color)},${f.alpha})`;
             ctx.fill();
-
             f.x += f.speedX;
             f.y += f.speedY;
             f.alpha -= f.decay;
-
-            if (f.alpha <= 0) {
-                fireworks.splice(i, 1);
-            }
+            if(f.alpha <=0) fireworks.splice(i,1);
         }
-
         requestAnimationFrame(animate);
     }
 
-    function hexToRgb(hex) {
-        hex = hex.replace('#','');
-        const bigint = parseInt(hex,16);
-        const r = (bigint >> 16) & 255;
-        const g = (bigint >> 8) & 255;
-        const b = bigint & 255;
+    function hexToRgb(hex){
+        hex=hex.replace('#','');
+        const bigint=parseInt(hex,16);
+        const r=(bigint>>16)&255;
+        const g=(bigint>>8)&255;
+        const b=bigint&255;
         return `${r},${g},${b}`;
     }
 
-    let count = 0;
-    const interval = setInterval(() => {
+    let count=0;
+    const interval=setInterval(()=>{
         createFirework();
         count++;
-        if (count > 10) clearInterval(interval);
-    }, 300);
+        if(count>10) clearInterval(interval);
+    },300);
 
     animate();
 }
-
 </script>
-
 </body>
 </html>

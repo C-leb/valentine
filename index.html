@@ -98,6 +98,78 @@ input {
     pointer-events: none;
     z-index: 9999;
 }
+
+/* 💌 UNMISSABLE OVERLAY MESSAGE */
+.message-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    flex-direction: column;
+    padding: 40px;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.message-overlay.show {
+    display: flex;
+    opacity: 1;
+}
+
+.message-overlay-content {
+    max-width: 600px;
+    text-align: center;
+    animation: slideInScale 0.8s ease;
+}
+
+.message-overlay-content h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #ff4b5c;
+    text-shadow: 0 0 20px #ff4b5c;
+}
+
+.message-overlay-content p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #ffffff;
+    margin: 20px 0;
+}
+
+.message-overlay-content .heart {
+    font-size: 40px;
+    margin-top: 30px;
+    animation: heartBeat 1.5s infinite;
+}
+
+@keyframes slideInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes heartBeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.2);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
 </style>
 </head>
 <body>
@@ -159,6 +231,21 @@ input {
     </p>
     <h1>❤️</h1>
 </section>
+
+<!-- 💌 UNMISSABLE MESSAGE OVERLAY (appears after fireworks) -->
+<div class="message-overlay" id="messageOverlay">
+    <div class="message-overlay-content">
+        <h2>Maya... 💕</h2>
+        <p>You once said No to being my Valentine…</p>
+        <p>And another day you said No to adding me to your notes. I promised I wouldn't remind you coz yeah forcing nope so. I said I wouldn't bring it up again sadly I did hear......</p>
+        <p>But this… this isn't reminding you.</p>
+        <p>This is trusting you and telling you whatever you choose. All decisions you will make are on you.</p>
+        <p>Hope you won't hurt me either way. I won't say, I'll just sleep on it.</p>
+        <p>Hope I did it right this time.</p>
+        <p><strong>LOVE YOU SOO MUCH</strong> 💖</p>
+        <div class="heart">❤️</div>
+    </div>
+</div>
 
 <!-- 🎵 BACKGROUND MUSIC -->
 <audio id="bgMusic" src="music.mp3"></audio>
@@ -240,15 +327,27 @@ window.addEventListener("scroll", () => {
 
 window.addEventListener("load", () => hideArrow());
 
-// ❤️ FINAL YES + FIREWORKS + AUTO TRUST SECTION
+// ❤️ FINAL YES + FIREWORKS + UNMISSABLE MESSAGE
 function finalYes() {
     launchFireworks();
 
-    // Wait fireworks duration (~3s) then show trustSection
+    // Wait fireworks duration (~3s) then show unmissable message overlay
     setTimeout(() => {
-        switchSection("finalSection", "trustSection");
-        showArrow(); // Show arrow to scroll trust section
+        showUnmissableMessage();
     }, 3000);
+}
+
+// 💌 SHOW UNMISSABLE MESSAGE OVERLAY
+function showUnmissableMessage() {
+    const overlay = document.getElementById("messageOverlay");
+    overlay.classList.add("show");
+    
+    // Auto-dismiss after 8 seconds, then continue to trust section
+    setTimeout(() => {
+        overlay.classList.remove("show");
+        switchSection("finalSection", "trustSection");
+        showArrow();
+    }, 8000);
 }
 
 // 🔥 FIREWORKS

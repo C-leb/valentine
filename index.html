@@ -99,7 +99,7 @@ input {
     z-index: 9999;
 }
 
-/* 💌 UNMISSABLE OVERLAY MESSAGE */
+/* 💌 UNMISSABLE OVERLAY MESSAGE - STAYS FOREVER */
 .message-overlay {
     position: fixed;
     top: 0;
@@ -150,6 +150,24 @@ input {
     font-size: 50px;
     margin-top: 40px;
     animation: heartBeat 1.5s infinite;
+}
+
+.message-overlay-content .continue-btn {
+    margin-top: 50px;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 40px;
+    border: none;
+    background: crimson;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px crimson;
+    transition: 0.3s;
+}
+
+.message-overlay-content .continue-btn:hover {
+    transform: scale(1.1);
+    background: deeppink;
 }
 
 @keyframes slideInScale {
@@ -236,7 +254,7 @@ input {
     <h1>❤️</h1>
 </section>
 
-<!-- 💌 UNMISSABLE MESSAGE OVERLAY (appears after fireworks) -->
+<!-- 💌 UNMISSABLE MESSAGE OVERLAY (STAYS FOREVER) -->
 <div class="message-overlay" id="messageOverlay">
     <div class="message-overlay-content">
         <h2>Maya... 💕</h2>
@@ -248,6 +266,7 @@ input {
         <p>Hope I did it right this time.</p>
         <p><strong>LOVE YOU SOO MUCH</strong> 💖</p>
         <div class="heart">❤️</div>
+        <button class="continue-btn" onclick="dismissMessage()">Continue Reading ❤️</button>
     </div>
 </div>
 
@@ -341,17 +360,19 @@ function finalYes() {
     }, 3000);
 }
 
-// 💌 SHOW UNMISSABLE MESSAGE OVERLAY - STAYS LONG FOR READING
+// 💌 SHOW UNMISSABLE MESSAGE OVERLAY - STAYS UNTIL SHE CLICKS
 function showUnmissableMessage() {
     const overlay = document.getElementById("messageOverlay");
     overlay.classList.add("show");
-    
-    // Keep message visible for 15 seconds so she has plenty of time to read it
-    setTimeout(() => {
-        overlay.classList.remove("show");
-        switchSection("finalSection", "trustSection");
-        showArrow();
-    }, 15000);
+    hideArrow();
+}
+
+// 💌 DISMISS MESSAGE AND CONTINUE
+function dismissMessage() {
+    const overlay = document.getElementById("messageOverlay");
+    overlay.classList.remove("show");
+    switchSection("finalSection", "trustSection");
+    showArrow();
 }
 
 // 🔥 FIREWORKS
@@ -389,7 +410,7 @@ function launchFireworks() {
         for(let i=fireworks.length-1;i>=0;i--){
             const f=fireworks[i];
             ctx.beginPath();
-            ctx.arc(f.y,f.y,f.radius,0,Math.PI*2);
+            ctx.arc(f.x,f.y,f.radius,0,Math.PI*2);
             ctx.fillStyle = `rgba(${hexToRgb(f.color)},${f.alpha})`;
             ctx.fill();
             f.x += f.speedX;

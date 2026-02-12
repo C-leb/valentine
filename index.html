@@ -61,24 +61,53 @@ input {
     margin: 15px 0;
     box-shadow: 0 0 15px pink;
 }
+
+/* 🎯 ARROW STYLES */
+.scroll-arrow {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    animation: bounce 2s infinite;
+    z-index: 100;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-15px);
+    }
+}
+
+.arrow-hide {
+    display: none;
+}
 </style>
 </head>
 
 <body>
 
+<!-- 🎯 FLOATING ARROW GUIDE -->
+<div class="scroll-arrow" id="scrollArrow">⬇️✨</div>
+
 <!-- 🔐 PASSWORD SECTION -->
 <section id="passwordSection" class="active">
     <h1>Enter The Password ❤️</h1>
-    <p style="opacity:0.7;">Hint: It’s his birthday 😉</p>
+    <p style="opacity:0.7;">Hint: It's her birthday 😉</p>
     <input type="text" id="passwordInput" placeholder="DD/MM/YYYY">
     <br><br>
     <button onclick="checkPassword()">Unlock</button>
 </section>
 
-<!-- 💖 TAP TO UNLOCK HEART -->
+<!-- 💖 TAP TO UNLOCK LOLENZI -->
 <section id="unlockSection">
     <h1>Maya ❤️</h1>
-    <button onclick="startExperience()">Tap to Unlock My Heart</button>
+    <button onclick="startExperience()">Tap to Unlock Lolenzi ❤️</button>
 </section>
 
 <!-- ⌨️ TYPING MESSAGE -->
@@ -91,7 +120,7 @@ input {
     <h1>Our Story So Far ❤️</h1>
 
     <img src="first.jpg" alt="First Time We Met">
-    <p>The first time we met... I didn’t know you’d mean this much.</p>
+    <p>The first time we met... I didn't know you'd mean this much.</p>
 
     <img src="second.jpg" alt="Inside Joke Memory">
     <p>Our inside jokes that no one else understands.</p>
@@ -112,17 +141,17 @@ input {
     <h2>You once said no to being my Valentine…</h2>
     <p>
         And you said no to adding me to your notes.  
-        I promised I wouldn’t remind you.  
-        I said I wouldn’t bring it up again.
+        I promised I wouldn't remind you.  
+        I said I wouldn't bring it up again.
     </p>
     <p>
-        But this… this isn’t reminding you.  
+        But this… this isn't reminding you.  
         This is trusting you.
     </p>
     <p>
-        It’s trusting that you’ll remember.  
-        That you’ll choose.  
-        That you’ll feel it too.
+        It's trusting that you'll remember.  
+        That you'll choose.  
+        That you'll feel it too.
     </p>
     <h1>❤️</h1>
 </section>
@@ -132,28 +161,42 @@ input {
 
 <script>
 
+let unlocked = false; // Track if password is unlocked
+
 // 🔑 PASSWORD SCRIPT (Updated)
 let correctPassword = "29/10/2007"; // Her birthday
 
 function checkPassword() {
     let input = document.getElementById("passwordInput").value.trim();
     if (input === correctPassword) {
+        unlocked = true;
         switchSection("passwordSection", "unlockSection");
+        showArrow(); // Show arrow after unlock
     } else {
         alert("Not quite 😉 Try again.");
     }
 }
 
-// 💖 TAP TO UNLOCK HEART
+// 🎯 ARROW FUNCTIONS
+function showArrow() {
+    document.getElementById("scrollArrow").classList.remove("arrow-hide");
+}
+
+function hideArrow() {
+    document.getElementById("scrollArrow").classList.add("arrow-hide");
+}
+
+// 💖 TAP TO UNLOCK LOLENZI
 function startExperience() {
     document.body.style.background = "linear-gradient(to bottom, #000000, #330033)";
     document.getElementById("bgMusic").play();
+    hideArrow(); // Hide arrow when experience starts
     switchSection("unlockSection", "messageSection");
     typeMessage();
 }
 
 // ⌨️ TYPING MESSAGE
-let message = "From the first day I saw you, Maya... something felt different. You weren’t just another person. You were calm, chaos, comfort, and mystery all at once. And somehow... you became my favorite feeling. ❤️";
+let message = "From the first day I saw you, Maya... something felt different. You weren't just another person. You were calm, chaos, comfort, and mystery all at once. And somehow... you became my favorite feeling. ❤️";
 let index = 0;
 
 function typeMessage() {
@@ -164,6 +207,7 @@ function typeMessage() {
     } else {
         setTimeout(() => {
             switchSection("messageSection", "timelineSection");
+            showArrow(); // Show arrow again for timeline
         }, 2000);
     }
 }
@@ -179,14 +223,29 @@ function switchSection(current, next) {
     document.getElementById(next).classList.add("active");
 }
 
-// 👀 SHOW FINAL SECTION ON SCROLL
+// 👀 PREVENT FINAL SECTION FROM SHOWING ON SCROLL - ONLY ON EXPLICIT UNLOCK
 window.addEventListener("scroll", () => {
     let timeline = document.getElementById("timelineSection");
     let final = document.getElementById("finalSection");
-    if (window.scrollY > timeline.offsetTop - 300) {
+    let timelineRect = timeline.getBoundingClientRect();
+    
+    // Only show final section if user scrolled past timeline AND it's unlocked
+    if (unlocked && window.scrollY > timeline.offsetTop + timeline.offsetHeight - 300) {
         final.classList.add("active");
+        hideArrow(); // Hide arrow when final section appears
+    } else if (!final.classList.contains("active")) {
+        // Keep showing arrow while scrolling through timeline
+        if (timeline.classList.contains("active")) {
+            showArrow();
+        }
     }
 });
+
+// Hide arrow initially if on mobile
+window.addEventListener("load", () => {
+    hideArrow(); // Start with arrow hidden
+});
+
 </script>
 
 </body>
